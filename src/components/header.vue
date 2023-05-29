@@ -1,42 +1,46 @@
 <template>
-    <div id="topnav">
-        <!-- <div class="left">
-            
-            <img src="@/assets/左箭头.png" alt="left" />
-        </div> -->
-        <div>
-            <ul>
-                <li>
-                    <a href="/index.html" class="logo">
-                        <img src="@/assets/计协logo.png" alt="logo" />
-                    </a>
-                </li>
-                <li>
-                    <a href="/index.html">
-                        <p>首页</p>
-                    </a>
-                </li>
-                <li><a href="/index.html">
-                        <p>计协简介</p>
-                    </a></li>
-                <li><a href="/index.html">
-                        <p>新闻中心</p>
-                    </a></li>
-                <li><a href="/index.html">
-                        <p>活动中心</p>
-                    </a></li>
-                <li><a href="/index.html">
-                        <p>资源归档</p>
-                    </a></li>
-                <li><a href="/index.html">
-                        <p>加入我们</p>
-                    </a></li>
-            </ul>
-        </div>
+    <div id="topnav" :class=nav>
+        <ul>
+            <li>
+                <router-link to="/" class="logo">
+                    <img src="@/assets/计协logo.png" alt="logo" />
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/">
+                    <p>首页</p>
+                </router-link>
+            </li>
+            <li><router-link to="/#t1">
+                    <p>计协简介</p>
+                </router-link></li>
+            <li><router-link to="/index.html">
+                    <p>新闻&通知</p>
+                </router-link></li>
+            <li><router-link to="/square">
+                    <p>计协广场</p>
+                </router-link></li>
+            <li><router-link to="/index.html">
+                    <p>资源归档</p>
+                </router-link></li>
+            <li><router-link to="/#bottom">
+                    <p>加入我们</p>
+                </router-link></li>
+        </ul>
     </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+const nav = ref('W_')
+window.onscroll = function () {
+    var t = document.documentElement.scrollTop || document.body.scrollTop;
+    if (t > 200) {
+        nav.value = 'B_'
+    } else {
+        nav.value = 'W_'
+    }
+}
 
 </script>
 
@@ -53,14 +57,12 @@
     left: 0;
     top: 0;
     z-index: 1030;
-    background-color: transparent;
     border: 0;
-    /* -webkit-transition: all .5s ease; */
     transition: all .5s ease;
-
     display: block;
-
     text-align: left;
+
+
 }
 
 a.logo {
@@ -80,7 +82,7 @@ ul {
     align-items: center;
     height: 74px;
     /* width: 100%; */
-    background-color: #ffffff00;
+    /* background-color: #ffffff00; */
 
     list-style: none;
     /* 垂直居中 */
@@ -98,22 +100,44 @@ li {
     line-height: 74px;
 }
 
-a:visited,
-a:link {
-    color: #ffffff;
-}
 
-a:hover,
-a:active {
-    color: #1ecd97;
-}
+
 
 
 a p {
     font-size: 1.2em;
     font-weight: 900;
-    /* padding-top: 25px;
-    padding-bottom: 25px;
-    min-height: 62px; */
+}
+
+
+/* B_和W_ */
+#topnav.B_ {
+    background-color: #ffffff;
+}
+
+#topnav.W_ {
+    background-color: transparent;
+}
+
+
+
+#topnav.W_ a:link,
+#topnav.W_ a:visited {
+    color: #ffffff;
+}
+
+/* , */
+#topnav.B_ a:link,
+#topnav.B_ a:visited {
+    color: #000000;
+}
+
+
+#topnav.B_ a:hover,
+#topnav.B_ a:active,
+#topnav.W_ a:hover,
+#topnav.W_ a:active {
+
+    color: #1ecd97;
 }
 </style>

@@ -4,7 +4,7 @@ import header_ from '@/components/header.vue'
 import background from '@/components/background.vue'
 import box from '@/components/box.vue'
 import doce from '@/components/doce.vue'
-import button_ from '@/components/button.vue'
+import bottom from '@/components/bottom.vue'
 </script>
 
 <template>
@@ -14,5 +14,5 @@ import button_ from '@/components/button.vue'
     <doce />
     <doce />
     <doce />
-    <button_ />
+    <bottom />
 </template>
