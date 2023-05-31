@@ -30,9 +30,9 @@
     </div>
     <div class="background">
             <div class="msg">
-                <p class='slogan'>Let's debug the world!</p>
+                <!-- <p class='slogan'>Let's debug the world!</p>
                 <br>
-                <p class="dis">东南大学成贤学院计算机协会</p>
+                <p class="dis">东南大学成贤学院计算机协会</p> -->
             </div>
 
         </div>
@@ -167,7 +167,7 @@ div.background {
     background-repeat: no-repeat;
     /*不要平铺*/
     background-position: center;
-    height: 900px;
+    height: 100px;
 
     display: block;
 }

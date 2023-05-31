@@ -9,7 +9,7 @@
 
 
 <script setup lang="ts">
-import header_ from '@/components/header.vue'
+import header_ from '@/components/header_short.vue'
 </script>
 
 <style scoped>
