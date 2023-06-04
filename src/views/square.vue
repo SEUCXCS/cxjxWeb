@@ -10,6 +10,7 @@
 
 <script setup lang="ts">
 import header_ from '@/components/header_short.vue'
+document.title = "成贤计协 | 广场"
 </script>
 
 <style scoped>

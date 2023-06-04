@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 // import HelloWorld from './components/HelloWorld.vue'
+
+// 修改网页标题
+document.title = "成贤计协"
 </script>
 
 <template>
@@ -24,9 +27,24 @@ import { RouterLink, RouterView } from 'vue-router'
     padding: 0;
     box-sizing: border-box;
 }
+
+p {
+    color: #404040;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #2f1844;
+}
+
 html {
     scroll-behavior: smooth;
 }
+
 a:visited,
 a:link {
     color: #000000;
@@ -42,7 +60,6 @@ a {
     /* 去除下划线 */
     text-decoration: none !important;
 }
-
 </style>
 <style scoped>
 /* header {
@@ -105,5 +122,4 @@ nav a:first-of-type {
         padding: 1rem 0;
         margin-top: 1rem;
     }
-} */
-</style>
+} */</style>

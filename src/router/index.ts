@@ -27,9 +27,9 @@ const router = createRouter({
             component: () => import('@/views/NewsHomeView.vue')
         },
         {
-            path: "/news/:id",
+            path: "/content/:id",
             name: "new",
-            component: () => import('@/views/NewsView.vue')
+            component: () => import('@/views/ContentView.vue')
         },
         {
             path: "/:pathMatch(.*)*",

@@ -6,9 +6,9 @@
                     <h3>
                         通知公告
                     </h3>
-                    <div v-for="news in newsList" class='news'>
-                        <p class="title">{{ news.title }}</p>
-                        <p class="date">{{ getTimestr(news.time) }}</p>
+                    <div v-for="notice in noticeList" class='news'>
+                        <p class="title">{{ notice.title }}</p>
+                        <p class="date">{{ getTimestr(notice.updateTime) }}</p>
                     </div>
                 </div>
             </div>
@@ -19,7 +19,7 @@
                     </h3>
                     <div v-for="news in newsList" class='news'>
                         <p class="title">{{ news.title }}</p>
-                        <p class="date">{{ getTimestr(news.time) }}</p>
+                        <p class="date">{{ getTimestr(news.updateTime) }}</p>
                     </div>
                 </div>
             </div>
@@ -28,9 +28,9 @@
                     <h3>
                         计协广场
                     </h3>
-                    <div v-for="news in newsList" class='news'>
-                        <p class="title">{{ news.title }}</p>
-                        <p class="date">{{ getTimestr(news.time) }}</p>
+                    <div v-for="blog in blogList" class='news'>
+                        <p class="title">{{ blog.title }}</p>
+                        <p class="date">{{ getTimestr(blog.updateTime) }}</p>
                     </div>
                 </div>
             </div>
@@ -43,81 +43,79 @@
 
 
 import { ref } from 'vue'
-const newsList = ref([] as news[])
-interface news {
-    title: string,
-    description: string,
-    text: string,
-    author: string,
-    time: string,
-}
+const newsList = ref([] as any[])
+const noticeList = ref([] as any[])
+const blogList = ref([] as any[])
+// interface news {
+//     title: string,
+//     text: string,
+//     author: string,
+//     updateTime: string,
+// }
 newsList.value = [
     {
-        "title": "重大专项科研难题攻关取得阶段性大捷",
-        "description": "重大专项科研难题攻关取得阶段性大捷",
-        "text": "20230527wza写java写爽了",
-        "author": "mehdikyubx",
-        "time": "2023-05-28T17:13:32"
-    },
-    {
-        "title": "重大专项科研难题攻关取得阶段性大捷",
-        "description": "重大专项科研难题攻关取得阶段性大捷",
-        "text": "20230527wza写java写爽了",
-        "author": "mehdikyubx",
-        "time": "2023-05-28T17:13:32"
-    }, {
-        "title": "重大专项科研难题攻关取得阶段性大捷",
-        "description": "重大专项科研难题攻关取得阶段性大捷",
-        "text": "20230527wza写java写爽了",
-        "author": "mehdikyubx",
-        "time": "2023-05-28T17:13:32"
-    }, {
-        "title": "重大专项科研难题攻关取得阶段性大捷",
-        "description": "重大专项科研难题攻关取得阶段性大捷",
-        "text": "20230527wza写java写爽了",
-        "author": "mehdikyubx",
-        "time": "2023-05-28T17:13:32"
-    }, {
-        "title": "重大专项科研难题攻关取得阶段性大捷",
-        "description": "重大专项科研难题攻关取得阶段性大捷",
-        "text": "20230527wza写java写爽了",
-        "author": "mehdikyubx",
-        "time": "2023-05-28T17:13:32"
-    }, {
-        "title": "重大专项科研难题攻关取得阶段性大捷",
-        "description": "重大专项科研难题攻关取得阶段性大捷",
-        "text": "20230527wza写java写爽了",
-        "author": "mehdikyubx",
-        "time": "2023-05-28T17:13:32"
+        "title": "新闻列表加载中",
+        "updateTime": "2023-05-28T17:13:32"
     }
 ]
-// 添加Access-Control-Allow-Origin  解决跨域问题  
-fetch('http://81.68.242.84:5438/api/home/news', {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+noticeList.value = [
+    {
+        "title": "通知列表加载中",
+        "updateTime": "2023-05-28T17:13:32"
     }
-})
-    .then(res => res.json())
-    .then(res => {
-        console.log(res)
-        if (res.code == 200) {
-            newsList.value = res.data
-            console.log(newsList.value)
-        } else {
-            console.log('获取新闻列表失败')
-        }
+]
+blogList.value = [
+    {
+        "title": "博客功能建设中……",
+        "updateTime": null
+    }
+]
+
+import cxjxApiGet from "@/api/api"
+cxjxApiGet("/api/content/news?amount=5")
+    .then((res: any) => {
+        console.log("获取新闻api：", res)
+        newsList.value = res
+    })
+    .catch((err: any) => {
+        console.log(err)
     })
 
+// fetch('http://81.68.242.84:5438/api/content/blog?amount=5', {
+//     method: 'GET',
+//     headers: {
+//         'Content-Type': 'application/json',
+//         'Access-Control-Allow-Origin': '*'
+//     }
+// })
+//     .then(res => res.json())
+//     .then(res => {
+//         console.log("blogres", res)
+//         if (res.code == 200) {
+//             blogList.value = res.data
+//             console.log(blogList.value)
+//         } else {
+//             console.log('获取博客列表失败')
+//         }
+//     })
+cxjxApiGet("/api/content/notice?amount=5")
+    .then((res: any) => {
+        console.log("获取通知api：", res)
+        noticeList.value = res
+    })
+    .catch((err: any) => {
+        console.log(err)
+    })
+
+
 function getTimestr(str: string) {
-    let date = new Date(str)
+    console.log("时间串：", str)
+    if (str == null || str == undefined) return str
+    let date = new Date(str.replace("T", ' '))
     return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
 }
 
 </script>
-
-
 <style scoped>
 .boxLine {
     width: 100%;

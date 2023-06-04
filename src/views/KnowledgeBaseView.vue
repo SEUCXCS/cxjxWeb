@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+document.title = "成贤计协 | 计协知识库"
 // import TheWelcome from '../components/TheWelcome.vue'
 import header_ from '@/components/header_short.vue'
 import classssitem from '@/components/classitem.vue'
