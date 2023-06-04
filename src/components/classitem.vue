@@ -2,7 +2,7 @@
     <ul>
         <li v-for="i in props.items">
             <div class="p">
-                <a v-if="i.link != undefined" :href="i.link">
+                <a v-if="i.link != undefined" :href="`/knowledgebase/` + i.linkID">
                     <p>{{ i.text }}</p>
                 </a>
                 <p v-else class="a">
@@ -26,6 +26,7 @@ const props = defineProps(['items'])
 
 console.log("props.items[0]", props.items)
 import classssitem from './classitem.vue'
+
 </script>
 
 

@@ -11,6 +11,12 @@ if (!fs.existsSync(path.join(__dirname, './pack'))) {
     fs.mkdirSync(path.join(__dirname, './pack'))
 }
 
+let strall = [
+    {
+        id: "-1",
+        html: "<h1>文件不存在</h1>"
+    }
+]
 
 // 逐层打包
 function dopack(config) {
@@ -47,7 +53,13 @@ function pack(link) {
     let html = marked(data)
     // 生成文件
     let linkID = md5(link)
-    fs.writeFileSync(path.join(__dirname, `./pack/${linkID}.html`), html)
+    
+    strall.push({
+        id: linkID,
+        html: html
+    })
+    // strall[linkID] = html
+    // fs.writeFileSync(path.join(__dirname, `./pack/${linkID}.html`), html)
     return linkID
 }
 
@@ -105,5 +117,9 @@ let config = [{
 
 dopack(config)
 // 保存配置文件
-fs.writeFileSync(path.join(__dirname, './pack/packConfig.json'), JSON.stringify(config, null, 4))
+fs.writeFileSync(path.join(__dirname, './pack/packConfig.ts'), 'export default ' + JSON.stringify(config, null, 4))
+// 保存打包文件
+fs.writeFileSync(path.join(__dirname, './pack/pack.ts'), 'export default ' + JSON.stringify(strall, null, 4))
+
+
 

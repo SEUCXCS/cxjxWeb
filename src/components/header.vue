@@ -14,14 +14,14 @@
             <li><router-link to="/#t1">
                     <p>计协简介</p>
                 </router-link></li>
-            <li><router-link to="/index.html">
+            <li><router-link to="/news">
                     <p>新闻&通知</p>
                 </router-link></li>
             <li><router-link to="/square">
                     <p>计协广场</p>
                 </router-link></li>
-            <li><router-link to="/archives">
-                    <p>资源归档</p>
+            <li><router-link to="/knowledgebase/">
+                    <p>计协知识库</p>
                 </router-link></li>
             <li><router-link to="/#bottom">
                     <p>加入我们</p>

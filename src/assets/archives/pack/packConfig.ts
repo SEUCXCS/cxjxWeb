@@ -1,4 +1,4 @@
-[
+export default [
     {
         "text": "竞赛相关",
         "collapsible": true,
