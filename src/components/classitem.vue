@@ -1,9 +1,9 @@
 <template>
     <ul>
         <li v-for="i in props.items">
-            <div class="p">
-                <a v-if="i.link != undefined" :href="`/knowledgebase/` + i.linkID">
-                    <p>{{ i.text }}</p>
+            <div :class="i.linkID == undefined ? `item_p` : `item_a`">
+                <a v-if="i.linkID != undefined" :href="`/knowledgebase/` + i.linkID" class="p">
+                    {{ i.text }}
                 </a>
                 <p v-else class="a">
                     {{ i.text }}
@@ -35,51 +35,29 @@ import classssitem from './classitem.vue'
     margin-left: 20px;
 }
 
-.p {
-    /* list-style: none;
-    margin: 0;
-    padding: 0; */
+.item_p {
     border: 1px solid rgb(150, 150, 150);
     border-radius: 5px;
-
 }
 
+.item_a {
+    border: 1px solid rgb(99, 99, 99);
+    border-radius: 5px;
+    padding: 5px;
+
+}
 
 a {
     height: 100%;
     width: 100%;
-
-    /* padding: 5px; */
 }
 
-a:link,
-a:visited {
-    /* color: #000000; */
-    background-color: #c6dbff00;
-}
-
-a:hover,
-a:active {
-    /* 修改背景色 */
-    background: #006eff;
-
-    /* background-color: #006eff; */
-
-    /* color: #FF00FF; */
-}
-
-
-p {
+p,
+a.p {
     padding: 5px;
 }
 
-
-
-/* ul {
-    display: -webkit-flex;
-    display: flex;
-} */
 li {
-    margin-top: 3px;
+    margin-top: 5px;
 }
 </style>

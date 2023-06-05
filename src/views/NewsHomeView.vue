@@ -153,12 +153,12 @@ function closeMonth(year: number, month: number) {
                 <!-- ▲ -->
                 <!-- :class="year.display != true ? `notplay` : ``" -->
                 <div class="yearBox">
-                    {{ year.year }}
+                    {{ year.year }}年
                     <button @click="closeYesr(year.year)" :id="`btn` + year.year"> &nbsp;▼&nbsp;</button>
                 </div>
                 <div v-for="month in year.month" :class="year.display != true ? `notplay` : `monthsBox`">
                     <div class="monthBox">
-                        {{ month.month }}
+                        {{ month.month }}月
                         <button @click="closeMonth(year.year, month.month)" :id="`btn` + month.month">
                             &nbsp;▼&nbsp;</button>
                     </div>

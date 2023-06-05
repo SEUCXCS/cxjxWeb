@@ -8,12 +8,9 @@ const id = route.params.id
 const content = ref({
     title: "找不到该文章",
     content: ""
-} as {
-    title: string,
-    content: string,
-})
+} as any)
 import cxjxApiGet from "@/api/api"
-cxjxApiGet(`/api/content?id=${id}`)
+cxjxApiGet(`/api/content?id=${id}&detail=true`)
     .then((res) => {
         content.value = res[0]
     })
@@ -26,7 +23,12 @@ cxjxApiGet(`/api/content?id=${id}`)
     <div class="main">
         <div class="mainContent">
             <h1>{{ content.title }}</h1>
+
             <div class="content" v-html="content.content"></div>
+
+            <p>发布日期：{{ content.uploadTime }}</p>
+            <p>更改日期：{{ content.updateTime }}</p>
+            <p>作者：{{ content.author }}</p>
         </div>
     </div>
 </template>
@@ -35,13 +37,31 @@ cxjxApiGet(`/api/content?id=${id}`)
 <style scoped>
 div.main {
     width: 100%;
-    padding: 0px 20% 0px 20%;
+    padding: 0px 15% 0px 15%;
 }
+
 div.mainContent {
     width: 100%;
     background-color: #f9e6ff;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     padding: 20px;
-    
+
+    min-height: 500px;
+}
+
+div.mainContent>h1 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 50px;
+}
+
+div.content{
+    font-size: 20px;
+    line-height: 40px;
+    text-indent: 2em;
+    text-align: justify;
+    text-justify: inter-ideograph;
+    margin-bottom: 50px;
 }
 </style>

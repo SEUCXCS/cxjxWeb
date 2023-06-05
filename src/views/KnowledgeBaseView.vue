@@ -42,10 +42,15 @@ console.log(str.value)
 
 <template>
     <header_ />
-    <div class="ArchiveDirectoryFrame">
-        <classssitem :items="packconfig"></classssitem>
+    <div class="main">
+        <div class="ArchiveDirectoryFrame">
+            <classssitem :items="packconfig"></classssitem>
+        </div>
+
+        <div v-html="str" class="mainContext">
+            
+        </div>
     </div>
-    <div v-html="str" class="mainContext"></div>
 </template>
 
 
@@ -53,40 +58,62 @@ console.log(str.value)
 
 
 <style scoped>
-div.ArchiveDirectoryFrame {
-    /* left: 0px; */
-    top: 0px;
-    height: 100%;
-    position: fixed;
-    /* height:700px; */
-    width: 250px;
-    background-color: #c6dbff;
-    /* padding-top: 100px; */
-    padding: 5px;
-    padding-top: 100px;
-    overflow: auto;
-    padding-bottom: 120px;
+div.main {
+    display: -webkit-flex;
+    display: flex;
+    padding: 20px 10% 20px 10%;
+   
 }
 
+div.main>div {
+    /* display: inline; */
+}
+
+
+div.ArchiveDirectoryFrame {
+    /* left: 0px; */
+    /* top: 0px; */
+    /* height: 100%; */
+    /* position: fixed; */
+    /* height:700px; */
+    /* width: 250px; */
+    background-color: #c6dbff;
+    /* padding-top: 100px; */
+    padding: 10px;
+    /* padding-top: 100px; */
+    overflow: auto;
+    /* padding-bottom: 120px; */
+    flex: 1;
+
+}
+
+
+
 div.mainContext {
-    margin: 0px 0px 0px 250px;
-    padding: 30px;
-    /* left: 250px;
-    top:100px; */
+    /* margin: 5px; */
+    /* width:800px; */
+    margin-left: 10px;
+    padding: 50px;
+    background-color: #c6dbff;
+    flex: 3;
 }
 </style>    
 
 <style>
-div.mainContext h1 {
+div.mainContext>h1 {
     text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 50px;
 }
+
 div.mainContext h1,
 div.mainContext h2,
 div.mainContext h3,
 div.mainContext h4,
 div.mainContext h5,
-div.mainContext h6{
-    margin:5px 0px 5px 0x;
+div.mainContext h6 {
+    margin: 5px 0px 5px 0x;
 }
 
 
@@ -100,6 +127,6 @@ div.mainContext ol {
 }
 
 div.mainContext>p {
-    margin:3px 0px 3px 0px;
+    margin: 3px 0px 3px 0px;
 }
 </style>
