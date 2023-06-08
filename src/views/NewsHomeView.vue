@@ -3,7 +3,7 @@ import header_ from "@/components/header_short.vue"
 import { ref, computed } from 'vue'
 document.title = "成贤计协 | 新闻&通知"
 
-import cxjxApiGet from "@/api/api"
+import api from "@/api/api"
 
 // 原始数据
 const newsList = ref([] as any[])
@@ -84,10 +84,8 @@ const displayData = computed(() => {
     return ret
 })
 
-cxjxApiGet("/api/content/news?detail=true")
-    .then((res: any) => {
-        // dataList.value = res
-
+api.GetNewsList(true)
+    .then((res) => {
         newsList.value = res
         console.log("newsList.value", newsList.value)
     })
@@ -95,8 +93,8 @@ cxjxApiGet("/api/content/news?detail=true")
         console.log(err)
     })
 
-cxjxApiGet("/api/content/notice?detail=true")
-    .then((res: any) => {
+api.GetNoticeList(true)
+    .then((res) => {
         noticeList.value = res
         console.log("noticeList.value", noticeList.value)
     })

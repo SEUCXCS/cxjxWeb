@@ -71,11 +71,17 @@ blogList.value = [
     }
 ]
 
-import cxjxApiGet from "@/api/api"
-cxjxApiGet("/api/content/news?amount=5")
+import api from "@/api/api"
+api.GetNewsList(false, 5)
     .then((res: any) => {
         console.log("获取新闻api：", res)
-        newsList.value = res
+        if (res.length > 0) newsList.value = res
+        else newsList.value = [
+            {
+                "title": "暂时没有新闻哦"
+            }
+        ]
+        // newsList.value = res
     })
     .catch((err: any) => {
         console.log(err)
@@ -98,10 +104,16 @@ cxjxApiGet("/api/content/news?amount=5")
 //             console.log('获取博客列表失败')
 //         }
 //     })
-cxjxApiGet("/api/content/notice?amount=5")
+api.GetNoticeList(false, 5)
     .then((res: any) => {
         console.log("获取通知api：", res)
-        noticeList.value = res
+        // noticeList.value = res
+        if (res.length > 0) noticeList.value = res
+        else noticeList.value = [
+            {
+                "title": "暂时没有通知哦"
+            }
+        ]
     })
     .catch((err: any) => {
         console.log(err)

@@ -41,7 +41,7 @@ import classssitem from './classitem.vue'
 }
 
 .item_a {
-    border: 1px solid rgb(99, 99, 99);
+    border: 1px solid rgb(59, 59, 59);
     border-radius: 5px;
     padding: 5px;
 

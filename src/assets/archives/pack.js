@@ -81,11 +81,11 @@ let config = [{
                     collapsible: false,
                     link: "竞赛相关/蓝桥杯（软件类）/关于试题.md",
                 },
-                {
-                    text: "22届_软件类_蓝桥杯报名相关事宜",
-                    collapsible: false,
-                    link: "竞赛相关/蓝桥杯（软件类）/22届_软件类_蓝桥杯报名相关事宜.md",
-                }
+                // {
+                //     text: "22届_软件类_蓝桥杯报名相关事宜",
+                //     collapsible: false,
+                //     link: "竞赛相关/蓝桥杯（软件类）/22届_软件类_蓝桥杯报名相关事宜.md",
+                // }
             ]
         }
     ]  // 下拉菜单列表
@@ -106,6 +106,16 @@ let config = [{
         }
     ]
 
+},{
+    text:"计协特供",
+    collapsible: true,
+    items:[
+        {
+            text:"高中生向大学生的转变",
+            collapsible: false,
+            link:"计协特供-高中生向[成贤【高质量】大学生]的快速转变"
+        }
+    ]
 }]
 // interface Items {
 //     text: string,   // 菜单名称

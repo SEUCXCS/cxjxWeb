@@ -10,6 +10,7 @@
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
   },
   "dependencies": {
+    "dayjs": "^1.11.8",
     "marked": "^5.0.4",
     "md5": "^2.3.0",
     "pinia": "^2.0.36",

@@ -4,15 +4,15 @@ import header_ from "@/components/header_short.vue"
 // 获取路由中的id
 import { useRoute } from 'vue-router'
 const route = useRoute()
-const id = route.params.id
+let id = route.params.id
 const content = ref({
     title: "找不到该文章",
     content: ""
 } as any)
-import cxjxApiGet from "@/api/api"
-cxjxApiGet(`/api/content?id=${id}&detail=true`)
+import api from "@/api/api"
+api.GetContent(id as string)
     .then((res) => {
-        content.value = res[0]
+        content.value = res
     })
 
 </script>
@@ -22,6 +22,7 @@ cxjxApiGet(`/api/content?id=${id}&detail=true`)
     <header_ />
     <div class="main">
         <div class="mainContent">
+
             <h1>{{ content.title }}</h1>
 
             <div class="content" v-html="content.content"></div>
@@ -56,7 +57,7 @@ div.mainContent>h1 {
     margin-bottom: 50px;
 }
 
-div.content{
+div.content {
     font-size: 20px;
     line-height: 40px;
     text-indent: 2em;

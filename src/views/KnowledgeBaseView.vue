@@ -48,7 +48,7 @@ console.log(str.value)
         </div>
 
         <div v-html="str" class="mainContext">
-            
+
         </div>
     </div>
 </template>
@@ -62,7 +62,7 @@ div.main {
     display: -webkit-flex;
     display: flex;
     padding: 20px 10% 20px 10%;
-   
+
 }
 
 div.main>div {
@@ -96,6 +96,15 @@ div.mainContext {
     padding: 50px;
     background-color: #c6dbff;
     flex: 3;
+
+    /* 字体优化 */
+    font-family: "Microsoft YaHei", "微软雅黑", "黑体", "宋体", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #333333;
+    text-align: left;
+    /* margin: 0px; */
 }
 </style>    
 
