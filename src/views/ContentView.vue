@@ -5,15 +5,14 @@ import header_ from "@/components/header_short.vue"
 import { useRoute } from 'vue-router'
 const route = useRoute()
 let id = route.params.id
-const content = ref({
-    title: "找不到该文章",
-    content: ""
-} as any)
-import api from "@/api/api"
-api.GetContent(id as string)
-    .then((res) => {
-        content.value = res
-    })
+
+import * as api from "@/api/api"
+// import { Type } from '@/api/Resources';
+const content = ref<api.Resources>()
+
+api.getResources(id).then((res: api.Resources) => {
+    content.value = res
+})
 
 </script>
 
@@ -21,7 +20,7 @@ api.GetContent(id as string)
 <template>
     <header_ />
     <div class="main">
-        <div class="mainContent">
+        <div class="mainContent" v-if="content">
 
             <h1>{{ content.title }}</h1>
 

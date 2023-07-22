@@ -3,7 +3,7 @@ import header_ from "@/components/header_short.vue"
 import { ref, computed } from 'vue'
 document.title = "成贤计协 | 新闻&通知"
 
-import api from "@/api/api"
+import * as api from "@/api/api"
 
 // 原始数据
 const newsList = ref([] as any[])

@@ -9,7 +9,7 @@ import doce from '@/components/doce.vue'
 import bottom from '@/components/bottom.vue'
 import datelist from '@/components/datelist.vue'
 
-import packconfig from '@/assets/archives/pack/packConfig'
+// import packconfig from '@/assets/archives/pack/packConfig'
 import pack from '@/assets/archives/pack/pack'
 // console.log(pack)
 import { ref, computed } from 'vue'
@@ -19,21 +19,53 @@ import { useRoute, useRouter } from 'vue-router'
 const route = useRoute() // 获取当前路由对象
 const router = useRouter() // 获取路由实例对象
 
-console.log("route.params.id", route.params.id)
-
-
-const str = computed(() => {
-    let sss = ''
-    if (typeof route.params.id == "string") { sss = route.params.id }
-    else { sss = route.params.id[0] }
-
-    let ssss = pack.find((item) => {
-        return item.id == sss
-    })
-    return ssss == undefined ? "<h1>not find </h1>" : ssss.html
+console.log("route.params.id:", route.params.id)
+const kid = computed(() => {
+    let s: string = ''
+    if (typeof route.params.id == "string") { s = route.params.id }
+    else { s = route.params.id[0] }
+    if (s == "") {
+        s = findResourceId(konwbaseconfig.value).toString()
+        if (s == "-1")
+            return "0"
+        else return s
+    }
+    else
+        return s
 })
 
-console.log(str.value)
+// 遍历konwbaseconfig，返回找到的第一个resourceId
+const findResourceId = (konwbaseconfig: KonwledgeBaseConfig[] | undefined) => {
+    if (!konwbaseconfig) return -1
+    let res: number = -1
+    konwbaseconfig.every((item: KonwledgeBaseConfig) => {
+        if (item.resourceId) {
+            res = item.resourceId
+            return false
+        } else if (item.items) {
+            res = findResourceId(item.items)
+            if (res != -1) return false
+            else return true
+        }
+        else return true
+    })
+    return res
+}
+
+const konwbaseconfig = ref<KonwledgeBaseConfig[]>()
+import * as api from "@/api/api"
+api.GetKonwledgeBaseConfig("knowbase")
+    .then((res: any) => {
+        console.log("获取知识库配置api：", res)
+        konwbaseconfig.value = res
+    })
+import { type KonwledgeBaseConfig, type Resources } from "@/api/api";
+const mainstr = ref<Resources>()
+api.getResources(kid.value)
+    .then((res: any) => {
+        console.log("获取知识库api：", res)
+        mainstr.value = res
+    })
 
 
 </script>
@@ -44,11 +76,12 @@ console.log(str.value)
     <header_ />
     <div class="main">
         <div class="ArchiveDirectoryFrame">
-            <classssitem :items="packconfig"></classssitem>
+            <classssitem :items="konwbaseconfig"></classssitem>
         </div>
 
-        <div v-html="str" class="mainContext">
-
+        <div v-if="mainstr" class="mainContext">
+            <div class="tital">{{ mainstr.title }}</div>
+            <div class="contect" v-html="mainstr.content"></div>
         </div>
     </div>
 </template>
@@ -137,5 +170,12 @@ div.mainContext ol {
 
 div.mainContext>p {
     margin: 3px 0px 3px 0px;
+}
+
+div.tital {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 50px;
 }
 </style>

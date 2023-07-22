@@ -71,7 +71,7 @@ blogList.value = [
     }
 ]
 
-import api from "@/api/api"
+import * as api from "@/api/api"
 api.GetNewsList(false, 5)
     .then((res: any) => {
         console.log("获取新闻api：", res)
@@ -120,6 +120,7 @@ api.GetNoticeList(false, 5)
     })
 
 
+// 2021-05-28T17:13:32
 function getTimestr(str: string) {
     console.log("时间串：", str)
     if (str == null || str == undefined) return str

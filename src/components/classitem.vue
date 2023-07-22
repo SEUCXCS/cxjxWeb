@@ -1,8 +1,8 @@
 <template>
     <ul>
         <li v-for="i in props.items">
-            <div :class="i.linkID == undefined ? `item_p` : `item_a`">
-                <a v-if="i.linkID != undefined" :href="`/knowledgebase/` + i.linkID" class="p">
+            <div :class="i.resourceId ? `item_p` : `item_a`">
+                <a v-if="i.resourceId != undefined" :href="`/knowledgebase/` + i.resourceId" class="p">
                     {{ i.text }}
                 </a>
                 <p v-else class="a">
@@ -16,15 +16,11 @@
 </template>
 
 <script setup lang="ts">
-interface Items {
-    text: string,// 菜单名称
-    collapsible: boolean,// 是否是一个可以折叠的组
-    link?: string,//    显示的文章
-    items: Items[]//    下拉菜单列表
-}
-const props = defineProps(['items'])
 
-console.log("props.items[0]", props.items)
+import { type KonwledgeBaseConfig } from '@/api/KonwledgeBaseConfig'
+const props = defineProps(['items']) as { items: KonwledgeBaseConfig[] }
+
+console.log("props", props)
 import classssitem from './classitem.vue'
 
 </script>

@@ -1,36 +1,59 @@
 import dayjs from "dayjs";
-import { type Content } from "@/api/api.d";
-// export default
-//     // 封装请求
-//     function cxjxApiGet(url: string): Promise<any> {
-//     let baseUrl = "http://81.68.242.84:5438"
-//     return new Promise((resolve, reject) => {
-//         fetch(baseUrl + url, {
-//             method: 'GET',
-//             headers: {
-//                 'Content-Type': 'application/json;charset=UTF-8'
-//             },
-//             mode: 'cors',
-//             cache: 'default'
-//         }).then(function (response) {
-//             return response.json();
-//         }).then(function (res) {
-//             if (res.code == 200) {
-//                 resolve(res.data)
-//             } else {
-//                 reject(res)
-//             }
-//         }).catch(function (e) {
-//             reject(e)
-//         });
-//     }
-//     )
-// }
+import { type KonwledgeBaseConfig } from "@/api/KonwledgeBaseConfig.d";
+import { type Resources } from "@/api/Resources.d";
+import { useUrlStore } from '@/stores/common'
+// const bu = useUrlStore()
+export {
+    type KonwledgeBaseConfig,
+    type Resources
+}
+import { ref } from 'vue'
+// 本地mock数据
+const url = ref('http://127.0.0.1:4523/m1/2650283-0-default')
+// 测试数据
+// const url = ref('http://81.68.242.84:5438')
+// // 正式数据
+// const url = ref('http://api.cxjx.truraly.icu')
 
+import axios from "axios";
+const AXIOS = axios.create({
+    // baseURL: bu.getUrl(),
+    baseURL: url.value,
+    timeout: 10000,
+    headers: {
+        'Content-Type': 'application/json;charset=UTF-8'
+    }
+});
+
+// 根据ID获取资源
+export async function getResources(id: number | string | string[]): Promise<Resources> {
+    if (typeof id == "string") id = parseInt(id)
+    else if (Array.isArray(id)) id = id[0]
+    let response = await AXIOS.get("/api/resources/" + id)
+    if (response.data.code != 200) {
+        throw new Error("获取资源失败")
+    }
+    let res: Resources = response.data.data
+    return res
+}
+
+// 获取知识库配置
+export async function GetKonwledgeBaseConfig(t: string): Promise<KonwledgeBaseConfig> {
+    let response = await AXIOS.get("/api/knowledgebases/" + t)
+    if (response.data.code != 200) {
+        throw new Error("获取知识库配置失败")
+    }
+    let res: KonwledgeBaseConfig = response.data.data
+    return res
+}
 // 获取新闻列表
-async function GetNewsList(detail: boolean, amount?: number): Promise<Content[]> {
+export async function GetNewsList(detail: boolean, amount?: number): Promise<Resources[]> {
     let query = "?detail=" + detail + "&amount=" + amount
-    let res: Content[] = await Get("/api/content/news" + query)
+    let response = await AXIOS.get("/api/resources/news" + query)
+    if (response.data.code != 200) {
+        throw new Error("获取新闻列表失败")
+    }
+    let res: Resources[] = response.data.data
     // 处理时间
     res.forEach((item: any) => {
         item.uploadTime = dayjs(item.uploadTime).format("YYYY-MM-DD HH:mm:ss")
@@ -39,64 +62,18 @@ async function GetNewsList(detail: boolean, amount?: number): Promise<Content[]>
     return res
 }
 // 获取通知列表
-async function GetNoticeList(detail: boolean, amount?: number): Promise<Content[]> {
+export async function GetNoticeList(detail: boolean, amount?: number): Promise<Resources[]> {
     let query = "?detail=" + detail + "&amount=" + amount
-    let res: Content[] = await Get("/api/content/notice" + query)
-    // 处理时间
-    res.forEach((item: any) => {
-        item.uploadTime = dayjs(item.uploadTime).format("YYYY-MM-DD HH:mm:ss")
-        item.updateTime = dayjs(item.updateTime).format("YYYY-MM-DD HH:mm:ss")
-    })
-    return res
-}
-// 获取blog
-async function GetBlogList(detail: boolean, amount?: number): Promise<Content[]> {
-    let query = "?detail=" + detail + "&amount=" + amount
-    let res: Content[] = await Get("/api/content/blog" + query)
-    // 处理时间
-    res.forEach((item: any) => {
-        item.uploadTime = dayjs(item.uploadTime).format("YYYY-MM-DD HH:mm:ss")
-        item.updateTime = dayjs(item.updateTime).format("YYYY-MM-DD HH:mm:ss")
-    })
-    return res
-}
-// 获取文章内容
-async function GetContent(id: number | string): Promise<Content> {
-    let query = "?id=" + id + "&detail=true"
-    let res: Content = await Get("/api/content" + query)
-    // if (resarr.length == 0) throw new Error("文章不存在")
-    // let res: Content = resarr[0]
-    // 处理时间
-    res.uploadTime = dayjs(res.uploadTime).format("YYYY-MM-DD HH:mm:ss")
-    res.updateTime = dayjs(res.updateTime).format("YYYY-MM-DD HH:mm:ss")
-    return res
-}
-// get接口
-function Get(url: string): Promise<any> {
-    let baseUrl = "http://81.68.242.84:5438"
-    return new Promise((resolve, reject) => {
-        fetch(baseUrl + url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8'
-            },
-            mode: 'cors',
-            cache: 'default'
-        }).then(function (response) {
-            return response.json();
-        }).then(function (res) {
-            if (res.code == 200) resolve(res.data)
-            else reject(res)
-        }).catch(function (e) {
-            reject(e)
-        })
+    let response = await AXIOS.get("/api/resources/notice" + query)
+    if (response.data.code != 200) {
+        throw new Error("获取通知列表失败")
     }
-    )
-}
-export default {
-    GetNewsList,
-    GetNoticeList,
-    GetBlogList,
-    GetContent
+    let res: Resources[] = response.data.data
+    // 处理时间
+    res.forEach((item: any) => {
+        item.uploadTime = dayjs(item.uploadTime).format("YYYY-MM-DD HH:mm:ss")
+        item.updateTime = dayjs(item.updateTime).format("YYYY-MM-DD HH:mm:ss")
+    })
+    return res
 }
 
